@@ -14,4 +14,19 @@ install_keras()
 fashion_mnist <- dataset_fashion_mnist()
 
 
-# 
+# Pre-processing data for SimpShape
+
+# Loading and installing required packages for preprocessing
+
+install.packages(c("rjson", "magick", "purrr", "tibble", "tidyr", "dplyr", "ggplot2", "stringr"))
+library(rjson)
+library(magick)
+library(purrr)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+
+annotations <- fromJSON(file = annot_file)
+str(annotations, max.level = 1)
