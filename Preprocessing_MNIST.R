@@ -33,6 +33,7 @@ class_names = c('T-shirt/top',
                 'Ankle boot')
 
 # Exploring the data
+
 dim(train_images) # Number of training images
 dim(train_labels) # Integers labeled
 dim(test_images) # Tested images
@@ -75,13 +76,6 @@ for (i in 1:25) {
   image(1:28, 1:28, img, col = gray((0:255)/255), xaxt = 'n', yaxt = 'n',
         main = paste(class_names[train_labels[i] + 1]))
 }
-
-# Display lines in an image using Hough Transform
-
-linesegments <- line_segment_detector(x)
-linesegments
-plot(image)
-plot(linesegments, add = TRUE, col = "red")
 
 
 # Set up the layers
