@@ -6,6 +6,8 @@ library(keras) # Installing keras
 system("conda config --set ssl_verify false")  # Get past conda sslerror's
 install_keras(tensorflow = "gpu")
 
+# Installing libraries for analysis
+
 library(tidyr) # Install tidyr
 library(ggplot2) # Install ggplot
 library(imager) # Install imager
