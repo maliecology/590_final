@@ -5,6 +5,9 @@
 #A program that takes a dataset of images and can classify the image, simplify them to edges, then identify the lines visible
 ######################################
 
+## Want to create a matrix output of processed images with Hough transform to identify lines
+
+
 
 #Installing packages
 install.packages("keras")
