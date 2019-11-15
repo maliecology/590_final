@@ -13,6 +13,10 @@ install.packages("opencv")
 library(opencv)
 install.packages("imager")
 library(imager)
+install.packages("FixedPoint")
+library(FixedPoint)
+install.packages("purrr")
+library(purrr)
 
 #Defining the data
 #myData <- dataset_mnist()

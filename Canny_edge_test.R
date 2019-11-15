@@ -63,72 +63,72 @@ overlap <- grow(strong,3) & weak
 strong.new <- strong | overlap
 plot(strong.new,main="New set of strong edges")
 
-delta <- sum(strong.new)-sum(strong)
-delta
+#delta <- sum(strong.new)-sum(strong)
+#delta
 
-#Example of a fixed point iteration:
-#divide a number by 2 until the result doesn't change
-f <- function(x) x/2
-g <- fp(f)
-g(3) #Run the fixed point iteration from 3.
+##Example of a fixed point iteration:
+##divide a number by 2 until the result doesn't change
+#f <- function(x) x/2
+#g <- fp(f)
+#g(3) #Run the fixed point iteration from 3.
 
-#expandStrong <- function(ws)
-{
-  overlap <- grow(ws$strong,3) & ws$weak
-  ws$strong[overlap] <- TRUE
-  ws$weak[overlap] <- FALSE
-  ws
-}
+##expandStrong <- function(ws)
+#{
+#  overlap <- grow(ws$strong,3) & ws$weak
+#  ws$strong[overlap] <- TRUE
+#  ws$weak[overlap] <- FALSE
+#  ws
+#}
 
 
-#hystFP is a new function that will call expandStrong repeatedly until
-#the weak and strong sets don't change anymore
-hystFP <- fp(expandStrong)
+##hystFP is a new function that will call expandStrong repeatedly until
+##the weak and strong sets don't change anymore
+#hystFP <- fp(expandStrong)
 
-#Call hystFP
-out <- list(strong=strong,weak=weak) %>% hystFP
-out
+##Call hystFP
+#out <- list(strong=strong,weak=weak) %>% hystFP
+#out
 
-canny <- out$strong
-plot(canny,main="Canny edges")
+#canny <- out$strong
+#plot(canny,main="Canny edges")
 
-#Using bucket fill method for speeding up processing
-#Collect seed pixels and plot their location
-plot(strong)
-map_df(pxs,~ where(.)[1,]) %$% points(x,y,col="red")
-v <- as.cimg(strong)
-v[weak==1] <- .9 #Strong pixels have value 1, weak .9, and the rest are 0.
+##Using bucket fill method for speeding up processing
+##Collect seed pixels and plot their location
+#plot(strong)
+#map_df(pxs,~ where(.)[1,]) %$% points(x,y,col="red")
+#v <- as.cimg(strong)
+#v[weak==1] <- .9 #Strong pixels have value 1, weak .9, and the rest are 0.
 
-add <- function(l) reduce(l,function(acc,item) acc+item,.init=0)
-add(1:3) #equals sum(1:3)
-mult <- function(l) reduce(l,function(acc,item) acc*item,.init=1)
-mult(1:3) #equals prod(1:3)
-#put the three colour channels side-by-side
-imsplit(boats,"c") %>% reduce(function(acc,l) imappend(list(acc,l),"x")) %>% plot
+#add <- function(l) reduce(l,function(acc,item) acc+item,.init=0)
+#add(1:3) #equals sum(1:3)
+#mult <- function(l) reduce(l,function(acc,item) acc*item,.init=1)
+#mult(1:3) #equals prod(1:3)
+##put the three colour channels side-by-side
+#imsplit(boats,"c") %>% reduce(function(acc,l) imappend(list(acc,l),"x")) %>% plot
 
 #Gives a set of initial locations for the bucket fill
-fillInit <- function(strong)
-{
-  pxs <- split_connected(strong,high_connectivity=TRUE)
-  map_df(pxs,~ where(.)[1,])
-}
+#fillInit <- function(strong)
+#{
+#  pxs <- split_connected(strong,high_connectivity=TRUE)
+#  map_df(pxs,~ where(.)[1,])
+#}
 
-#Starts a fill at each successive location, and accumulates the results
-rescueFill <- function(strong,weak)
-{
-  v <- as.cimg(strong)
-  v[weak] <- .9
-  loc <- fillInit(strong)
-  #Transform the data.frame into a list of locations
-  loc <- transpose(loc)
-  #Fold
-  out <- reduce(loc,function(v,l) bucketfill(v,l$x,l$y,color=1,sigma=.1,high=TRUE),
-                .init=v)
-  out==1
-}
+##Starts a fill at each successive location, and accumulates the results
+#rescueFill <- function(strong,weak)
+#{
+#  v <- as.cimg(strong)
+#  v[weak] <- .9
+#  loc <- fillInit(strong)
+#  #Transform the data.frame into a list of locations
+#  loc <- transpose(loc)
+#  #Fold
+#  out <- reduce(loc,function(v,l) bucketfill(v,l$x,l$y,color=1,sigma=.1,high=TRUE),
+#                .init=v)
+#  out==1
+#}
 
-canny2 <- rescueFill(strong,weak)
-all.equal(canny,canny2)
+#canny2 <- rescueFill(strong,weak)
+#all.equal(canny,canny2)
 
-system.time(hystFP(list(strong=strong,weak=weak)))
-system.time(rescueFill(strong,weak))
+#system.time(hystFP(list(strong=strong,weak=weak)))
+#system.time(rescueFill(strong,weak))
