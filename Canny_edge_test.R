@@ -7,6 +7,7 @@ install.packages("purrr")
 library(FixedPoint)
 library(purrr)
 
+
 #Using a gaussian filter to denoise
 im <- grayscale(boats) %>% isoblur(2)
 
@@ -53,11 +54,11 @@ plot(strong,main="Initial set of strong edges")
 weak <- mag %inr% c(t1,t2)
 plot(weak,main="Initial set of weak edges")
 
-#Running morphological dialation on potential edges
-px <- imnoise(100,100) > 1
-layout(t(1:2))
-plot(px,"Original")
-plot(grow(px,3),"Dilated Set")
+##Running morphological dialation on potential edges
+#px <- imnoise(100,100) > 1
+#layout(t(1:2))
+#plot(px,"Original")
+#plot(grow(px,3),"Dilated Set")
 
 overlap <- grow(strong,3) & weak 
 strong.new <- strong | overlap
