@@ -64,6 +64,22 @@ overlap <- grow(strong,3) & weak
 strong.new <- strong | overlap
 plot(strong.new,main="New set of strong edges")
 
+#Converting strong.new from a pixel image to dataframe
+as.data.frame(strong.new)
+
+
+
+#Blurring the boats image
+im.blurry <- isoblur(boats, 10)
+
+
+####
+#Hough transform
+####
+
+boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
+#boat_line <- hough_line(grayscale(im.blurry), ntheta = 500, data.frame = FALSE, shift = TRUE) %>% plot
+
 #delta <- sum(strong.new)-sum(strong)
 #delta
 
