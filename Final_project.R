@@ -156,10 +156,6 @@ as.data.frame(strong.new)
 
 
 
-#Blurring the boats image
-im.blurry <- isoblur(boats, 10)
-
-
 
 
 
@@ -168,5 +164,10 @@ im.blurry <- isoblur(boats, 10)
 #Hough transform Step
 ##########################
 
-boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
+#Blurring the boats image
+im.blurry <- isoblur(boats, 10)
+
+#Identifying the location of lines in an image
+boat_line <- hough_line(strong.new, ntheta = 500, data.frame = FALSE, shift = FALSE) %>% plot
+#boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
 #boat_line <- hough_line(grayscale(im.blurry), ntheta = 500, data.frame = FALSE, shift = TRUE) %>% plot
