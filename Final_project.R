@@ -11,10 +11,33 @@ library(tensorflow)
 install_tensorflow()
 install.packages("opencv")
 library(opencv)
+install.packages("imager")
+library(imager)
 
 #Defining the data
-myData <- dataset_mnist()
-#myData <- dataset_fashion_mnist()
+#myData <- dataset_mnist()
+myData <- dataset_fashion_mnist()
+
+#Detecting edges using Canny
+#Using a gaussian filter to denoise
+im <- grayscale(myData) %>% isoblur(2)
+
+#Computing an image gradient
+gr <- imgradient(im,"xy")
+plot(gr,layout="row")
+
+#Computing the gradient magnitude
+mag <- with(gr,sqrt(x^2+y^2))
+plot(mag)
+
+#Determining the local orientation with the gradient angle
+ang <- with(gr,atan2(y,x))
+plot(ang)
+
+#Simplifying the image using non-maxima thresholding
+threshold(mag) %>% plot
+
+
 
 #Defining variables from the dataset
 train_images <- myData$train$x
