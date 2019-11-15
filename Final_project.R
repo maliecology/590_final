@@ -97,7 +97,7 @@ metrics
 
 
 #######################
-#Edge Detection Layer
+#Edge Detection Step
 #######################
 
 #Using a gaussian filter to denoise
@@ -165,7 +165,7 @@ im.blurry <- isoblur(boats, 10)
 
 
 ##########################
-#Hough transform
+#Hough transform Step
 ##########################
 
 boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
