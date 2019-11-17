@@ -13,11 +13,24 @@ library(keras) # Installing keras
 system("conda config --set ssl_verify false")  # Get past conda sslerror's
 install_keras(tensorflow = "gpu")
 
-# Installing libraries for analysis
+# Updating libraries for analysis
 
 library(tidyr) # Install tidyr
 library(ggplot2) # Install ggplot
 library(imager) # Install imager
+
+# Installing additional packages
+
+install_tensorflow()
+library(tensorflow)
+install.packages("opencv")
+library(opencv)
+install.packages("imager")
+library(imager)
+install.packages("FixedPoint")
+library(FixedPoint)
+install.packages("purrr")
+library(purrr)
 
 
 # Importing the mnist fashion data set
