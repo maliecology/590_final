@@ -8,10 +8,8 @@
 
 
 # Install Keras for RStudio 
-devtools::install_github("rstudio/keras")
-library(keras) # Installing keras
-system("conda config --set ssl_verify false")  # Get past conda sslerror's
-install_keras(tensorflow = "gpu")
+install.packages("keras")
+library(keras)
 
 # Updating libraries for analysis
 
@@ -20,7 +18,6 @@ library(ggplot2) # Install ggplot
 library(imager) # Install imager
 
 # Installing additional packages
-
 install_tensorflow()
 library(tensorflow)
 install.packages("opencv")
@@ -133,14 +130,14 @@ threshold(mag)
 
 #Going along the (normalised) gradient
 #Xc(im) is an image containing the x coordinates of the image
-nX <- Xc(im) + gr$x/mag 
-nY <- Yc(im) + gr$y/mag
+nX <- Xc(imgs) + gr$x/mag
+nY <- Yc(imgs) + gr$y/mag
 #nX and nY are not integer values, so we can't use them directly as indices.
 #We can use interpolation, though:
 val.fwd <- interp(mag,data.frame(x=as.vector(nX),y=as.vector(nY)))
 
-nX <- Xc(im) - gr$x/mag 
-nY <- Yc(im) - gr$y/mag
+nX <- Xc(imgs) - gr$x/mag 
+nY <- Yc(imgs) - gr$y/mag
 val.bwd <- interp(mag,data.frame(x=as.vector(nX),y=as.vector(nY)))
 
 throw <- (mag < val.bwd) | (mag < val.fwd)
