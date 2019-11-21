@@ -194,14 +194,14 @@ imght <- as.cimg(lines[i, , ])
 fashion_line <- hough_line(imght, ntheta = 500, data.frame = FALSE, shift = FALSE)
 
 #Put images into an array
-hough_mat[i, , ] <- array(fashion_line, dim = c(1,80,500))
+hough_mat[i, , ] <- array(fashion_line, dim = c(1,80,50))
 
 #boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
 #boat_line <- hough_line(grayscale(im.blurry), ntheta = 500, data.frame = FALSE, shift = TRUE) %>% plot
 
 }
 
-# Display first 25 images and class name, verify the data
+# Display first 25 images with lines, verify the data
 
 par(mfcol=c(5,5))
 par(mar=c(0, 0, 1.5, 0), xaxs='i', yaxs='i')
