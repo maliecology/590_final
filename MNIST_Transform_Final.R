@@ -5,7 +5,8 @@
 #A program that takes a dataset of images and can classify the image, simplify them to edges, then identify the lines visible
 ######################################
 
-
+# Set seed to standardize
+set.seed(1234)
 
 # Install Keras for RStudio 
 install.packages("keras")
