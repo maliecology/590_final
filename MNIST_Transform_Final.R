@@ -104,37 +104,37 @@ lines <- array(NaN, dim = c(1000,28,28))
 for(i in 1:1000){
 
 
-#Transpose the image array
+# Transpose the image array
 imgd <- t(train_images[i, , ])
-#Changing the class to an cimg
+# Changing the class to an cimg
 imgs <- as.cimg(imgd)
 
 
-#Using a gaussian filter to denoise
+# Using a gaussian filter to denoise
 #im <- grayscale(imgs) %>% isoblur(2)
 
 
-#Computing an image gradient
+# Computing an image gradient
 gr <- imgradient(imgs,"xy")
 #plot(gr,layout="row")
 
-#Computing the gradient magnitude
+# Computing the gradient magnitude
 mag <- with(gr,sqrt(x^2+y^2))
 #plot(mag)
 
-#Determining the local orientation with the gradient angle
+# Determining the local orientation with the gradient angle
 ang <- with(gr,atan2(y,x))
 #plot(ang)
 
-#Simplifying the image using non-maxima thresholding
+# Simplifying the image using non-maxima thresholding
 threshold(mag) 
 
-#Going along the (normalised) gradient
+# Going along the (normalised) gradient
 #Xc(im) is an image containing the x coordinates of the image
 nX <- Xc(imgs) + gr$x/mag
 nY <- Yc(imgs) + gr$y/mag
 #nX and nY are not integer values, so we can't use them directly as indices.
-#We can use interpolation, though:
+# We can use interpolation, though:
 val.fwd <- interp(mag,data.frame(x=as.vector(nX),y=as.vector(nY)))
 
 nX <- Xc(imgs) - gr$x/mag 
@@ -145,7 +145,7 @@ throw <- (mag < val.bwd) | (mag < val.fwd)
 mag[throw] <- 0
 #plot(mag)
 
-#Identifying strong and weak thresholds for classifying edge pixels
+# Identifying strong and weak thresholds for classifying edge pixels
 #strong threshold
 t2 <- quantile(mag,.90)
 #weak threshold 
@@ -157,15 +157,15 @@ strong <- mag>t2
 weak <- mag %inr% c(t1,t2)
 #plot(weak,main="Initial set of weak edges")
 
-#Final step is producing the image called strong.new that is strong edges only version of OG image
+# Final step is producing the image called strong.new that is strong edges only version of OG image
 overlap <- grow(strong,3) & weak 
 strong.new <- strong | overlap
 
-#Put Images back into an array
+# Put Images back into an array
 lines[i, , ] <- array(strong.new, dim = c(1,28,28))
 #plot(strong.new,main="New set of strong edges")
 
-#Converting strong.new from a pixel image to dataframe
+# Converting strong.new from a pixel image to dataframe
 #as.data.frame(strong.new)
 
 }
@@ -188,13 +188,13 @@ hough_mat <- array(NaN, dim = c(1000,80,500))
 
 for (i in 1:1000) {
 
-#change class to cimg
+# Change class to cimg
 imght <- as.cimg(lines[i, , ])
 
-#Identifying the location of lines in an image
+# Identifying the location of lines in an image
 fashion_line <- hough_line(imght, ntheta = 500, data.frame = FALSE, shift = FALSE)
 
-#Put images into an array
+# Put images into an array
 hough_mat[i, , ] <- array(fashion_line, dim = c(1,80,50))
 
 #boat_line <- hough_line(strong.new, ntheta = 500, data.frame = TRUE, shift = FALSE) %>% plot
