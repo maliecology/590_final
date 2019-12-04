@@ -1,8 +1,8 @@
 #######################################
-#Final Project Code
-#Due completely on December 2, 2019
-#Oldies but Goodies
-#A program that takes a dataset of images and can classify the image, simplify them to edges, then identify the lines visible
+# Final Project Code
+# Due completely on December 2, 2019
+# Oldies but Goodies
+# A program that takes a dataset of images and can classify the image, simplify them to edges, then identify the lines visible
 ######################################
 
 
