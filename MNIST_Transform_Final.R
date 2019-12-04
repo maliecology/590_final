@@ -10,7 +10,11 @@
 install.packages("keras")
 library(keras)
 
-# Updating libraries for analysis
+# Updating libraries and packages for analysis
+install.packages("tidyr")
+install.packages("ggplot2")
+install.packages("imager")
+install.packages("devtools")
 
 library(tidyr) # Install tidyr
 library(ggplot2) # Install ggplot
@@ -119,7 +123,7 @@ model %>% compile(
 model %>% fit(train_images, train_labels, epochs = 5)
 
 
-# Evaluate accuracy
+# Evaluate accuracy of the model
 
 score <- model %>% evaluate(test_images, test_labels)
 
